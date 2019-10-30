@@ -12,6 +12,7 @@ using MyShop.Backend.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace MyShop.Backend
 {
@@ -34,6 +35,11 @@ namespace MyShop.Backend
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyShop API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,9 +60,14 @@ namespace MyShop.Backend
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSwagger();
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyShop API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
