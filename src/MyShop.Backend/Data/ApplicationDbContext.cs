@@ -4,7 +4,7 @@ using MyShop.Backend.Models;
 
 namespace MyShop.Backend.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public DbSet<Product> Products { get; set; }
 
@@ -34,6 +34,9 @@ namespace MyShop.Backend.Data
                 .HasOne(pc => pc.Category)
                 .WithMany(c => c.ProductCategories)
                 .HasForeignKey(pc => pc.CategoryId);
+
+            modelBuilder.Entity<User>()
+                .ToTable("AspNetUsers");
         }
     }
 }
