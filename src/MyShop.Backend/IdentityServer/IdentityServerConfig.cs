@@ -41,6 +41,7 @@ namespace MyShop.Backend.IdentityServer
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = false,
                     RequirePkce = true,
+                    AllowOfflineAccess = true,
 
                     // where to redirect to after login
                     RedirectUris = { "https://localhost:44393/signin-oidc" },

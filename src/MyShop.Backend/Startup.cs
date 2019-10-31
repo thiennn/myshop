@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -45,6 +46,21 @@ namespace MyShop.Backend
                 .AddAspNetIdentity<User>()
                 .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
 
+            services.AddAuthentication()
+                .AddLocalApi("Bearer", option =>
+                {
+                    option.ExpectedScope = "api.myshop";
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Bearer", policy =>
+                {
+                    policy.AddAuthenticationSchemes("Bearer");
+                    policy.RequireAuthenticatedUser();
+                });
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -62,6 +78,16 @@ namespace MyShop.Backend
                             Scopes = new Dictionary<string, string> { { "api.myshop", "My Shop API" } }
                         },
                     },
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new List<string>{ "api.myshop" }
+                    }
                 });
             });
         }
