@@ -5,7 +5,6 @@
     <UserSecretsId>aspnet-MyShop.Backend-54A6C299-F0FC-4B61-B682-9340FFA64668</UserSecretsId>
   </PropertyGroup>
 
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
@@ -15,8 +14,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.0.1" />
   </ItemGroup>
-
 
   <ItemGroup>
     <ProjectReference Include="..\MyShop.ViewModels\MyShop.ViewModels.csproj" />

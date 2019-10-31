@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MyShop.Backend.Data;
+using MyShop.Backend.IdentityServer;
 using MyShop.Backend.Models;
 
 namespace MyShop.Backend
@@ -26,8 +27,22 @@ namespace MyShop.Backend
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<User, IdentityRole>()
+            services.AddDefaultIdentity<User>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+            })
+                .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
+                .AddInMemoryApiResources(IdentityServerConfig.Apis)
+                .AddInMemoryClients(IdentityServerConfig.Clients)
+                .AddAspNetIdentity<User>()
+                .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -57,7 +72,7 @@ namespace MyShop.Backend
             app.UseRouting();
             app.UseSwagger();
 
-            app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseAuthorization();
             app.UseSwaggerUI(c =>
             {
