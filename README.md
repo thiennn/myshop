@@ -1,2 +1,3 @@
-# Welcome to MyShop this the sample project that can help you getting start with ASP.NET Core
+# MyShop, a sample project that can help you getting start with ASP.NET Core easier
 
+![My Shop Architecture](myshop.png)
