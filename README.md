@@ -38,3 +38,9 @@ You will need to have .NET Core 3.0 SDK installed. You can use Visual Studio 201
 3. Go to the src\MyShop.Backend open the appsettings.json update the connection string, then type `dotnet ef database update` to run migration. Then type `dotnet run` to launch the backend
 
 4. Go to the src\MyShop.Frontend folder and type `dotnet run` to launch the frontend.
+
+## Authentication
+
+All the content: brands, categories, products can be added via swagger ui. The insert/update/delete APIs are required authentication. So you will need to register an account. Then, in the swagger ui click "Authorize", a popup dialog will be showed and in the **Scope** you need to check on the 'api.myshop'. After authorized you can invoke methods to create brands, categories, projects including upload product thumbnails.
+
+![](img/swaggerui.png)
