@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,8 +11,7 @@ using Microsoft.OpenApi.Models;
 using MyShop.Backend.Data;
 using MyShop.Backend.IdentityServer;
 using MyShop.Backend.Models;
-using System;
-using System.Collections.Generic;
+using MyShop.Backend.Services;
 
 namespace MyShop.Backend
 {
@@ -30,6 +30,9 @@ namespace MyShop.Backend
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IStorageService, FileStorageService>();
+
             services.AddDefaultIdentity<User>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
