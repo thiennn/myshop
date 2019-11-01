@@ -37,4 +37,4 @@ You will need to have .NET Core 3.0 SDK installed. You can use Visual Studio 201
 
 3. Go to the src\MyShop.Backend open the appsettings.json update the connection string, then type `dotnet ef database update` to run migration. Then type `dotnet run` to launch the backend
 
-4. Go to the src\MyShop.Frontend folder and type `dotnet run` to launch the frondend.
+4. Go to the src\MyShop.Frontend folder and type `dotnet run` to launch the frontend.
