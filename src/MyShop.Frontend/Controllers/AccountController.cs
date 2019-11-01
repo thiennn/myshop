@@ -6,7 +6,7 @@ namespace MyShop.Frontend.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult SignIn(string returnUrl)
+        public IActionResult SignIn()
         {
             return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "oidc");
         }

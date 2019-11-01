@@ -1,0 +1,8 @@
+﻿@model IList<MyShop.ViewModels.CategoryVm>
+
+<ul class="navbar-nav" style="margin: 0 auto">
+    @foreach (var cat in Model)
+    {
+        <li class="nav-item"><a class="nav-link" href="/categories/@cat.Id">@cat.Name</a></li>
+    }
+</ul>
