@@ -10,7 +10,6 @@ using MyShop.Frontend.Models;
 
 namespace MyShop.Frontend.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

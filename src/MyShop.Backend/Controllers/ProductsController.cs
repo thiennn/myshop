@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyShop.Backend.Data;
 using MyShop.Backend.Models;
 using MyShop.Backend.Services;
@@ -30,7 +33,7 @@ namespace MyShop.Backend.Controllers
         public async Task<ActionResult<ProductVm>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            if(product == null)
+            if (product == null)
             {
                 return NotFound();
             }
@@ -47,6 +50,34 @@ namespace MyShop.Backend.Controllers
 
             return productVm;
         }
+
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProduct()
+        {
+            var products = await _context.Products.Select(x =>
+                new
+                {
+                    x.Id,
+                    x.Name,
+                    x.Price,
+                    x.Description,
+                    x.ImageFileName
+                }).ToListAsync();
+
+            var productVms = products.Select(x => 
+                new ProductVm
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Price = x.Price,
+                    Description = x.Description,
+                    ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
+                }).ToList();
+
+            return productVms;
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
