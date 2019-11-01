@@ -23,6 +23,7 @@ namespace MyShop.Backend.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<BrandVm>>> GetBrands()
         {
             return await _context.Brands
@@ -31,6 +32,7 @@ namespace MyShop.Backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<BrandVm>> GetBrand(int id)
         {
             var brand = await _context.Brands.FindAsync(id);

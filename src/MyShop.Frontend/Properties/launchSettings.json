@@ -18,7 +18,7 @@
     "MyShop.Frontend": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "applicationUrl": "https://localhost:44393;http://localhost:63962",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

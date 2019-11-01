@@ -30,6 +30,7 @@ namespace MyShop.Backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<ProductVm>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -53,6 +54,7 @@ namespace MyShop.Backend.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductVm>>> GetProduct()
         {
             var products = await _context.Products.Select(x =>

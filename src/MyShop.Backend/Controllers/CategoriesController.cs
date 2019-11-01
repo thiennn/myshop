@@ -23,6 +23,7 @@ namespace MyShop.Backend.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<CategoryVm>>> GetCategories()
         {
             return await _context.Categories
@@ -31,6 +32,7 @@ namespace MyShop.Backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<CategoryVm>> GetCategory(int id)
         {
             var category = await _context.Categories.FindAsync(id);
