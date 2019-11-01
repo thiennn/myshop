@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyShop.Frontend.Controllers
@@ -7,19 +8,7 @@ namespace MyShop.Frontend.Controllers
     {
         public IActionResult SignIn(string returnUrl)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Challenge("oidc");
-            }
-            else
-            {
-                if (string.IsNullOrWhiteSpace(returnUrl))
-                {
-                    return Redirect("~/");
-                }
-
-                return Redirect(returnUrl);
-            }
+            return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "oidc");
         }
 
         public IActionResult SignOut()
