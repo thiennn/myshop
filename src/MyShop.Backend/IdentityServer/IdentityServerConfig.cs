@@ -33,7 +33,7 @@ namespace MyShop.Backend.IdentityServer
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedScopes = { "api.myshop" }
                 },
-                 new Client
+                new Client
                 {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
@@ -57,8 +57,32 @@ namespace MyShop.Backend.IdentityServer
                         "api.myshop"
                     }
                  },
-                 new Client
+                new Client
                 {
+                    ClientId = "blazor",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireConsent = false,
+                    RequirePkce = true,
+                    AllowOfflineAccess = true,
+
+                    // where to redirect to after login
+                    RedirectUris = { "https://localhost:44322/signin-oidc" },
+
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { "https://localhost:44322/signout-callback-oidc" },
+
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "api.myshop"
+                    }
+                 },
+                 new Client
+                 {
                     ClientId = "js",
                     ClientName = "JavaScript Client",
 

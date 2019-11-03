@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyShop.Backend", "src\MySho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyShop.Frontend", "src\MyShop.Frontend\MyShop.Frontend.csproj", "{4D187D17-75BC-41F9-B69D-F75C22010AAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShop.ViewModels", "src\MyShop.ViewModels\MyShop.ViewModels.csproj", "{DE3455FC-CF73-461E-A99D-BCC02009C5AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyShop.ViewModels", "src\MyShop.ViewModels\MyShop.ViewModels.csproj", "{DE3455FC-CF73-461E-A99D-BCC02009C5AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShop.BlazorFrontend", "src\MyShop.BlazorFrontend\MyShop.BlazorFrontend.csproj", "{F52F06E6-41BF-4473-BC9A-7FB3A4687D37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShop.BlazorFrontend.Host", "src\MyShop.BlazorFrontend.Host\MyShop.BlazorFrontend.Host.csproj", "{5733E738-4620-43CD-89A0-7686BD0D0736}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlazorFrontend", "BlazorFrontend", "{BD3C2441-23EC-441B-9F7A-C42135086D7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +33,21 @@ Global
 		{DE3455FC-CF73-461E-A99D-BCC02009C5AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE3455FC-CF73-461E-A99D-BCC02009C5AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE3455FC-CF73-461E-A99D-BCC02009C5AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F52F06E6-41BF-4473-BC9A-7FB3A4687D37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F52F06E6-41BF-4473-BC9A-7FB3A4687D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F52F06E6-41BF-4473-BC9A-7FB3A4687D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F52F06E6-41BF-4473-BC9A-7FB3A4687D37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5733E738-4620-43CD-89A0-7686BD0D0736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5733E738-4620-43CD-89A0-7686BD0D0736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5733E738-4620-43CD-89A0-7686BD0D0736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5733E738-4620-43CD-89A0-7686BD0D0736}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F52F06E6-41BF-4473-BC9A-7FB3A4687D37} = {BD3C2441-23EC-441B-9F7A-C42135086D7E}
+		{5733E738-4620-43CD-89A0-7686BD0D0736} = {BD3C2441-23EC-441B-9F7A-C42135086D7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DE4D1B0-BD02-461A-9100-934E2CB234C9}
