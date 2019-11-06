@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyShop.Frontend", "src\MySh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyShop.ViewModels", "src\MyShop.ViewModels\MyShop.ViewModels.csproj", "{DE3455FC-CF73-461E-A99D-BCC02009C5AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShop.BlazorFrontend", "src\MyShop.BlazorFrontend\MyShop.BlazorFrontend.csproj", "{F52F06E6-41BF-4473-BC9A-7FB3A4687D37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyShop.BlazorFrontend", "src\MyShop.BlazorFrontend\MyShop.BlazorFrontend.csproj", "{F52F06E6-41BF-4473-BC9A-7FB3A4687D37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShop.BlazorFrontend.Host", "src\MyShop.BlazorFrontend.Host\MyShop.BlazorFrontend.Host.csproj", "{5733E738-4620-43CD-89A0-7686BD0D0736}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyShop.BlazorFrontend.Host", "src\MyShop.BlazorFrontend.Host\MyShop.BlazorFrontend.Host.csproj", "{5733E738-4620-43CD-89A0-7686BD0D0736}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlazorFrontend", "BlazorFrontend", "{BD3C2441-23EC-441B-9F7A-C42135086D7E}"
 EndProject

@@ -13,7 +13,7 @@ namespace MyShop.Frontend.Controllers
 
         public IActionResult SignOut()
         {
-            return SignOut("Cookies", "oidc");
+            return SignOut(new AuthenticationProperties { RedirectUri = "/" }, "Cookies", "oidc");
         }
 
         [Authorize]

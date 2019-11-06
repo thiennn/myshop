@@ -57,7 +57,6 @@ namespace MyShop.Frontend
                         NameClaimType = "name",
                         RoleClaimType = "role"
                     };
-
                 });
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
