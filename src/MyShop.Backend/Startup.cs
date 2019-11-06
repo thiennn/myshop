@@ -71,7 +71,7 @@ namespace MyShop.Backend
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("https://localhost:44322")
+                    builder.WithOrigins("https://localhost:44322", "http://localhost:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -132,7 +132,7 @@ namespace MyShop.Backend
             app.UseAuthorization();
             app.UseSwaggerUI(c =>
             {
-                c.OAuthClientId("js");
+                c.OAuthClientId("swagger");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyShop API V1");
             });
 
