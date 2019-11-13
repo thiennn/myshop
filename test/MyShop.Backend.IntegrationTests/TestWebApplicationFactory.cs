@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using MyShop.Backend.Data;
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MyShop.Backend.Data;
 using MyShop.Backend.Models;
 
 namespace MyShop.Backend.IntegrationTests
@@ -18,7 +16,6 @@ namespace MyShop.Backend.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                // Remove the app's ApplicationDbContext registration.
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
                         typeof(DbContextOptions<ApplicationDbContext>));
@@ -31,7 +28,6 @@ namespace MyShop.Backend.IntegrationTests
                 services.AddDbContext<ApplicationDbContext>((options, context) =>
                 {
                     context.UseInMemoryDatabase("InMemoryDbForTesting");
-                   // context.UseSqlite("DataSource =:memory: ");
                 });
 
                 var sp = services.BuildServiceProvider();
