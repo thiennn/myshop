@@ -1,5 +1,7 @@
 # MyShop, a sample project that can help you getting start with ASP.NET Core easier
 
+![](https://github.com/thiennn/myshop/workflows/.NET%20Core/badge.svg)
+
 ![My Shop Architecture](img/myshop.png)
 
 # Getting started
