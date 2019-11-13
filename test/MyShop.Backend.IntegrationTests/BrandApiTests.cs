@@ -53,7 +53,6 @@ namespace MyShop.Backend.IntegrationTests
         public async Task PostBrand_Authenticated_Success()
         {
             var client = _factory.CreateAuthenticatedClient();
-
             var brand = new BrandCreateRequest { Name = "Test brand authenticated" };
 
             var response = await client.PostAsJsonAsync("api/brands", brand);

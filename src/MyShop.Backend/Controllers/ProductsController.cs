@@ -80,7 +80,6 @@ namespace MyShop.Backend.Controllers
             return productVms;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
         {
