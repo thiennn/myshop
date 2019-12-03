@@ -52,7 +52,6 @@ namespace MyShop.Backend.Controllers
             return productVm;
         }
 
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductVm>>> GetProduct()

@@ -51,7 +51,6 @@ namespace MyShop.Backend.Controllers
             return categoryVm;
         }
 
-
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategory(int id, CategoryCreateRequest categoryCreateRequest)
         {

@@ -51,7 +51,6 @@ namespace MyShop.Backend.Controllers
             return brandVm;
         }
 
-
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBrand(int id, BrandCreateRequest brandCreateRequest)
         {
