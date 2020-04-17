@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -28,7 +26,12 @@ namespace MyShop.Frontend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            services.Configure<AppSettings>(appSettingsSection);
+
             services.AddHttpClient();
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
@@ -37,7 +40,7 @@ namespace MyShop.Frontend
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = "https://localhost:44349";
+                    options.Authority = appSettings.BackendUrl;
                     options.RequireHttpsMetadata = false;
                     options.GetClaimsFromUserInfoEndpoint = true;
 
@@ -59,9 +62,19 @@ namespace MyShop.Frontend
                     };
                 });
 
+
+            var configureClient = new Action<IServiceProvider, HttpClient>(async (provider, client) =>
+            {
+                var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
+                var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+
+                client.BaseAddress = new Uri(appSettings.BackendUrl);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            });
+
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<ICategoryApiClient, CategoryApiClient>();
-            services.AddTransient<IProductApiClient, ProductApiClient>();
+            services.AddHttpClient<ICategoryApiClient, CategoryApiClient>(configureClient);
+            services.AddHttpClient<IProductApiClient, ProductApiClient>(configureClient);
 
             services.AddControllersWithViews();
         }

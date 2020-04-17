@@ -1,11 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Authentication
+@using Microsoft.Extensions.Options
+@inject IOptions<AppSettings> AppSettingsOptions
 
 @{
     ViewData["Title"] = "My profile";
+    var backendUrl = AppSettingsOptions.Value.BackendUrl;
 }
 
-<h2><a href="https://localhost:44349/Identity/Account/Manage">My Account</a></h2>
-<br /><br />
+<h2><a href="@backendUrl/Identity/Account/Manage">My Account</a></h2>
+<br />
+<br />
 
 <h2>Claims</h2>
 

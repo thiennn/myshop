@@ -1,4 +1,9 @@
-﻿@model IList<MyShop.ViewModels.ProductVm>
+﻿@using Microsoft.Extensions.Options
+@model IList<MyShop.ViewModels.ProductVm>
+@inject IOptions<AppSettings> AppSettingsOptions
+@{
+    var backendUrl = AppSettingsOptions.Value.BackendUrl;
+}
 
 @{
     ViewData["Title"] = "Home Page";
@@ -9,7 +14,7 @@
     {
     <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
-            <img class="bd-placeholder-img card-img-top" src="https://localhost:44349/@product.ThumbnailImageUrl" />
+            <img class="bd-placeholder-img card-img-top" src="@backendUrl/@product.ThumbnailImageUrl" />
             <div class="card-body">
                 <p class="card-text">@product.Name</p>
                 <div class="d-flex justify-content-between align-items-center">

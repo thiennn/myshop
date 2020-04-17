@@ -1,32 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using MyShop.ViewModels;
 
 namespace MyShop.Frontend.Services
 {
     public class ProductApiClient : IProductApiClient
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly HttpClient _client;
 
-        public ProductApiClient(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
+        public ProductApiClient(HttpClient client)
         {
-            _httpClientFactory = httpClientFactory;
-            _httpContextAccessor = httpContextAccessor;
+            _client = client;
         }
 
         public async Task<IList<ProductVm>> GetProducts()
         {
-            var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-
-            var client = _httpClientFactory.CreateClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            var response = await client.GetAsync("https://localhost:44349/api/products");
+            var response = await _client.GetAsync("api/products");
 
             response.EnsureSuccessStatusCode();
 

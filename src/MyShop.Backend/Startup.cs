@@ -29,9 +29,17 @@ namespace MyShop.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var clientUrls = new Dictionary<string, string>
+            {
+                ["Mvc"] = Configuration["ClientUrl:Mvc"],
+                ["Blazor"] = Configuration["ClientUrl:Blazor"],
+                ["Swagger"] = Configuration["ClientUrl:Swagger"],
+                ["Angular"] = Configuration["ClientUrl:Angular"],
+                ["React"] = Configuration["ClientUrl:React"]
+            };
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IStorageService, FileStorageService>();
 
@@ -47,7 +55,7 @@ namespace MyShop.Backend
             })
                 .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
                 .AddInMemoryApiResources(IdentityServerConfig.Apis)
-                .AddInMemoryClients(IdentityServerConfig.Clients)
+                .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
                 .AddAspNetIdentity<User>()
                 .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
 
@@ -71,7 +79,7 @@ namespace MyShop.Backend
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("https://localhost:44322", "http://localhost:4200")
+                    builder.WithOrigins(clientUrls["Blazor"], clientUrls["Angular"])
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -90,7 +98,7 @@ namespace MyShop.Backend
                     {
                         Implicit = new OpenApiOAuthFlow
                         {
-                            AuthorizationUrl = new Uri("https://localhost:44349/connect/authorize"),
+                            AuthorizationUrl = new Uri($"{clientUrls["Swagger"]}/connect/authorize"),
                             Scopes = new Dictionary<string, string> { { "api.myshop", "My Shop API" } }
                         },
                     },
