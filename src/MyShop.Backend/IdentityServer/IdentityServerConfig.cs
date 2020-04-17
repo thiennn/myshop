@@ -132,41 +132,6 @@ namespace MyShop.Backend.IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         "api.myshop"
                     }
-                },
-                new Client
-                {
-                    ClientName = "react_code_client",
-                    ClientId = "react_code_client",
-                    AccessTokenType = AccessTokenType.Reference,
-                    RequireConsent = false,
-
-                    RequireClientSecret = false,
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-
-                    AllowAccessTokensViaBrowser = true,
-                    RedirectUris = new List<string>
-                    {
-                        $"{clientUrls["React"]}",
-                        $"{clientUrls["React"]}/authentication/login-callback",
-                        $"{clientUrls["React"]}/silent-renew.html"
-                    },
-                    PostLogoutRedirectUris = new List<string>
-                    {
-                        $"{clientUrls["React"]}/unauthorized",
-                        $"{clientUrls["React"]}/authentication/logout-callback",
-                        $"{clientUrls["React"]}"
-                    },
-                    AllowedCorsOrigins = new List<string>
-                    {
-                        $"{clientUrls["React"]}"
-                    },
-                    AllowedScopes = new List<string>
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "api.myshop"
-                    }
                 }
             };
     }
