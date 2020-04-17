@@ -1,3 +1,5 @@
+import { environment } from '../environments/environment';
+
 export const ApplicationName = 'AngularSpa';
 
 export const ReturnUrlType = 'returnUrl';
@@ -81,7 +83,7 @@ interface ApplicationPathsType {
 export const ApplicationPaths: ApplicationPathsType = applicationPaths;
 
 export const OidcSettings = {
-  authority: "https://localhost:44349",
+  authority: environment.backendUrl,
   client_id: "angular_code_client",
   redirect_uri: "http://localhost:4200/authentication/login-callback",
   post_logout_redirect_uri: "http://localhost:4200/authentication/logout-callback",
