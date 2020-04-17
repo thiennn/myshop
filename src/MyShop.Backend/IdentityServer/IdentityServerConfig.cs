@@ -19,8 +19,8 @@ namespace MyShop.Backend.IdentityServer
                 new ApiResource("api.myshop", "MyShop API")
             };
 
-        public static IEnumerable<Client> Clients =>
-            new Client[]
+        public static IEnumerable<Client> Clients(Dictionary<string, string> clientUrls) =>
+            new []
             {
                 new Client
                 {
@@ -41,10 +41,10 @@ namespace MyShop.Backend.IdentityServer
                     AllowOfflineAccess = true,
 
                     // where to redirect to after login
-                    RedirectUris = { "https://localhost:44393/signin-oidc" },
+                    RedirectUris = { $"{clientUrls["Mvc"]}/signin-oidc" },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { "https://localhost:44393/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { $"{clientUrls["Mvc"]}/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
@@ -65,10 +65,10 @@ namespace MyShop.Backend.IdentityServer
                     AllowOfflineAccess = true,
 
                     // where to redirect to after login
-                    RedirectUris = { "https://localhost:44322/signin-oidc" },
+                    RedirectUris = { $"{clientUrls["Blazor"]}/signin-oidc" },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { "https://localhost:44322/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { $"{clientUrls["Blazor"]}/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
@@ -87,9 +87,9 @@ namespace MyShop.Backend.IdentityServer
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
 
-                    RedirectUris =           { "https://localhost:44349/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { "https://localhost:44349/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { "https://localhost:44349" },
+                    RedirectUris =           { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"{clientUrls["Swagger"]}" },
 
                     AllowedScopes = new List<string>
                     {
@@ -112,19 +112,19 @@ namespace MyShop.Backend.IdentityServer
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:4200",
-                        "http://localhost:4200/authentication/login-callback",
-                        "http://localhost:4200/silent-renew.html"
+                        $"{clientUrls["Angular"]}",
+                        $"{clientUrls["Angular"]}/authentication/login-callback",
+                        $"{clientUrls["Angular"]}/silent-renew.html"
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-                        "http://localhost:4200/unauthorized",
-                        "http://localhost:4200/authentication/logout-callback",
-                        "http://localhost:4200"
+                        $"{clientUrls["Angular"]}/unauthorized",
+                        $"{clientUrls["Angular"]}/authentication/logout-callback",
+                        $"{clientUrls["Angular"]}"
                     },
                     AllowedCorsOrigins = new List<string>
                     {
-                        "http://localhost:4200"
+                        $"{clientUrls["Angular"]}"
                     },
                     AllowedScopes = new List<string>
                     {
