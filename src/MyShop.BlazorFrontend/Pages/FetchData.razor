@@ -1,5 +1,9 @@
 @page "/fetchdata"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject HttpClient Http
+@inject IAccessTokenProvider TokenProvider
+@attribute [Authorize]
 
 <h1>Weather forecast</h1>
 
@@ -39,6 +43,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        var tokenRequest = await TokenProvider.RequestAccessToken();
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
     }
 
