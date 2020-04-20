@@ -25,14 +25,7 @@ namespace MyShop.BlazorFrontend
                 options.ProviderOptions.PostLogoutRedirectUri = "/";
             });
 
-            ConfigureCommonServices(builder.Services);
-
             await builder.Build().RunAsync();
-        }
-
-        public static void ConfigureCommonServices(IServiceCollection services)
-        {
-            
         }
     }
 }
