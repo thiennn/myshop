@@ -20,7 +20,7 @@ namespace MyShop.BlazorFrontend
             {
                 options.ProviderOptions.Authority = "https://localhost:44349";
                 options.ProviderOptions.ClientId = "blazor";
-                options.ProviderOptions.DefaultScopes = new List<string> { "openid", "profile" };
+                options.ProviderOptions.DefaultScopes = new List<string> { "openid", "profile", "api.myshop" };
                 options.ProviderOptions.ResponseType = "code";
                 options.ProviderOptions.PostLogoutRedirectUri = "/";
             });
