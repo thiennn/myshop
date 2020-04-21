@@ -1,5 +1,9 @@
-﻿@page "/fetchdata"
+@page "/fetchdata"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject HttpClient Http
+@inject IAccessTokenProvider TokenProvider
+@attribute [Authorize]
 
 <h1>Weather forecast</h1>
 
@@ -35,11 +39,12 @@ else
 }
 
 @code {
-    WeatherForecast[] forecasts;
+    private WeatherForecast[] forecasts;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        var tokenRequest = await TokenProvider.RequestAccessToken();
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
     }
 
     public class WeatherForecast

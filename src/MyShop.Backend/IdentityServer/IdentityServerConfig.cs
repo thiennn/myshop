@@ -40,10 +40,7 @@ namespace MyShop.Backend.IdentityServer
                     RequirePkce = true,
                     AllowOfflineAccess = true,
 
-                    // where to redirect to after login
                     RedirectUris = { $"{clientUrls["Mvc"]}/signin-oidc" },
-
-                    // where to redirect to after logout
                     PostLogoutRedirectUris = { $"{clientUrls["Mvc"]}/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
@@ -57,18 +54,21 @@ namespace MyShop.Backend.IdentityServer
                 new Client
                 {
                     ClientId = "blazor",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    //ClientSecrets = { new Secret("secret".Sha256()) },
+                    RequireClientSecret = false,
 
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = false,
                     RequirePkce = true,
                     AllowOfflineAccess = true,
 
-                    // where to redirect to after login
-                    RedirectUris = { $"{clientUrls["Blazor"]}/signin-oidc" },
+                    RedirectUris = { $"{clientUrls["Blazor"]}/authentication/login-callback" },
+                    PostLogoutRedirectUris = { $"{clientUrls["Blazor"]}/" },
 
-                    // where to redirect to after logout
-                    PostLogoutRedirectUris = { $"{clientUrls["Blazor"]}/signout-callback-oidc" },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        $"{clientUrls["Blazor"]}"
+                    },
 
                     AllowedScopes = new List<string>
                     {
@@ -104,7 +104,7 @@ namespace MyShop.Backend.IdentityServer
                     ClientId = "angular_code_client",
                     AccessTokenType = AccessTokenType.Reference,
                     RequireConsent = false,
-
+                    
                     RequireClientSecret = false,
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
