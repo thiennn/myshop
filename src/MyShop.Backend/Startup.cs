@@ -96,9 +96,10 @@ namespace MyShop.Backend
                     Type = SecuritySchemeType.OAuth2,
                     Flows = new OpenApiOAuthFlows
                     {
-                        Implicit = new OpenApiOAuthFlow
+                        AuthorizationCode = new OpenApiOAuthFlow
                         {
-                            AuthorizationUrl = new Uri($"{clientUrls["Swagger"]}/connect/authorize"),
+                            TokenUrl = new Uri("/connect/token", UriKind.Relative),
+                            AuthorizationUrl = new Uri("/connect/authorize", UriKind.Relative),
                             Scopes = new Dictionary<string, string> { { "api.myshop", "My Shop API" } }
                         },
                     },
@@ -141,6 +142,8 @@ namespace MyShop.Backend
             app.UseSwaggerUI(c =>
             {
                 c.OAuthClientId("swagger");
+                c.OAuthClientSecret("secret");
+                c.OAuthUsePkce();
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyShop API V1");
             });
 
