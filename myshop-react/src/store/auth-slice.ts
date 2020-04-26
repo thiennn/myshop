@@ -5,15 +5,15 @@ import { AuthService } from "../services/auth-service";
 
 const authService = new AuthService();
 
-interface User {
-  name: string
+interface IUser {
+  name: string;
 }
 
-interface AuthState {
-  user?: User;
+interface IAuthState {
+  user?: IUser;
 }
 
-const initialState: AuthState = {
+const initialState: IAuthState = {
   user: undefined,
 };
 
@@ -21,18 +21,25 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginSuccess: (state, { payload }: PayloadAction<User>) => {
+    loginSuccess: (state, { payload }: PayloadAction<IUser>) => {
       state.user = payload;
     },
   },
 });
 
-export const { loginSuccess } = authSlice.actions;
+const { loginSuccess } = authSlice.actions;
 
 export const loginAsync = (): AppThunk => async (dispatch) => {
   await authService.login();
 };
 
+export const loginCallBackAsync = (url: string): AppThunk => async (dispatch) => {
+  await authService.loginCallback(url);
+  const user = await authService.getUser();
+  dispatch(loginSuccess({ name: user?.profile.name } as IUser));
+};
+
 export const selectIsAuthenticated = (state: RootState) => !!state.auth.user;
+export const selectUser = (state: RootState) => state.auth.user;
 
 export default authSlice.reducer;

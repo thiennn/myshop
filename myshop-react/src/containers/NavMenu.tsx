@@ -1,11 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LoginMenu from "../components/LoginMenu";
 
-import { selectIsAuthenticated } from "../store/auth-slice";
+import { selectIsAuthenticated, selectUser, loginAsync } from "../store/auth-slice";
 
 const NavMenu = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const userName = useSelector(selectUser)?.name;
+  const dispatch = useDispatch();
 
   return (
     <header>
@@ -24,7 +26,7 @@ const NavMenu = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-            <LoginMenu isAuthenticated={isAuthenticated} />
+            <LoginMenu isAuthenticated={isAuthenticated} onLogin={() => dispatch(loginAsync())} userName={userName} />
           </div>
         </div>
       </nav>

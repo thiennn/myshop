@@ -37,7 +37,7 @@ export class AuthService {
     return this.userManager.signoutRedirect();
   }
 
-  public signinRedirectCallback(): Promise<User> {
-    return this.userManager.signinRedirectCallback();
+  public loginCallback(url: string): Promise<User> {
+    return this.userManager.signinCallback(url);
   }
 }
