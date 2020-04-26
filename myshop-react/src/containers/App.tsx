@@ -1,15 +1,9 @@
 import React, { useEffect } from "react";
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
-import Home from "./components/Home";
-import About from "./components/About";
-import { AuthService } from "./services/auth-service";
-import NavMenu from "./components/NavMenu";
+import { BrowserRouter, Switch, Route, Link, useHistory } from "react-router-dom";
+import Home from "../components/Home";
+import About from "../components/About";
+import { AuthService } from "../services/auth-service";
+import NavMenu from "./NavMenu";
 
 class App extends React.Component<any, any> {
   public authService: AuthService;
