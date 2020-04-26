@@ -54,21 +54,16 @@ namespace MyShop.Backend.IdentityServer
                 new Client
                 {
                     ClientId = "blazor",
-                    //ClientSecrets = { new Secret("secret".Sha256()) },
-                    RequireClientSecret = false,
-
                     AllowedGrantTypes = GrantTypes.Code,
+                    AllowOfflineAccess = true,
+
                     RequireConsent = false,
                     RequirePkce = true,
-                    AllowOfflineAccess = true,
+                    RequireClientSecret = false,
 
                     RedirectUris = { $"{clientUrls["Blazor"]}/authentication/login-callback" },
                     PostLogoutRedirectUris = { $"{clientUrls["Blazor"]}/" },
-
-                    AllowedCorsOrigins = new List<string>
-                    {
-                        $"{clientUrls["Blazor"]}"
-                    },
+                    AllowedCorsOrigins = new List<string> { $"{clientUrls["Blazor"]}" },
 
                     AllowedScopes = new List<string>
                     {
@@ -81,11 +76,11 @@ namespace MyShop.Backend.IdentityServer
                 new Client
                 {
                     ClientId = "swagger",
-                    ClientName = "Swagger Client",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
 
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowAccessTokensViaBrowser = true,
                     RequireConsent = false,
+                    RequirePkce = true,
 
                     RedirectUris =           { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
                     PostLogoutRedirectUris = { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },

@@ -11,6 +11,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.4",
+    "bootstrap": "^4.4.1",
     "oidc-client": "^1.10.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -32,8 +33,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "plugin:prettier/recommended"
+      "react-app"
     ]
   },
   "browserslist": {
