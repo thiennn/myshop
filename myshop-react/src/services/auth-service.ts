@@ -21,23 +21,27 @@ export class AuthService {
     Log.level = Log.DEBUG;
   }
 
-  public getUser(): Promise<User | null> {
+  public getUserAsync(): Promise<User | null> {
     return this.userManager.getUser();
   }
 
-  public login(): Promise<void> {
+  public loginAsync(): Promise<void> {
     return this.userManager.signinRedirect();
   }
 
-  public renewToken(): Promise<User> {
+  public completeLoginAsync(url: string): Promise<User> {
+    return this.userManager.signinCallback(url);
+  }
+
+  public renewTokenAsync(): Promise<User> {
     return this.userManager.signinSilent();
   }
 
-  public logout(): Promise<void> {
+  public logoutAsync(): Promise<void> {
     return this.userManager.signoutRedirect();
   }
 
-  public loginCallback(url: string): Promise<User> {
-    return this.userManager.signinCallback(url);
+  public async completeLogoutAsync(url: string): Promise<void> {
+    await this.userManager.signoutCallback(url);
   }
 }

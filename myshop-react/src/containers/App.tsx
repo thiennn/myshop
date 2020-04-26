@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Home from "../components/Home";
 import About from "../components/About";
 import NavMenu from "./NavMenu";
-import Login from "./Login";
+import Auth from "./Auth";
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
           <Link to="/">Home</Link> <Link to="/about">About</Link>
         </div>
         <Switch>
-          <Route path="/authentication" component={Login} />
+          <Route path="/authentication" component={Auth} />
           <Route path="/about" component={About} />
           <Route path="/" component={Home} />
         </Switch>

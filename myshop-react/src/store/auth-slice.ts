@@ -24,19 +24,31 @@ export const authSlice = createSlice({
     loginSuccess: (state, { payload }: PayloadAction<IUser>) => {
       state.user = payload;
     },
+    logoutSuccess: (state) => {
+      state.user = undefined;
+    },
   },
 });
 
-const { loginSuccess } = authSlice.actions;
+const { loginSuccess, logoutSuccess } = authSlice.actions;
 
 export const loginAsync = (): AppThunk => async (dispatch) => {
-  await authService.login();
+  await authService.loginAsync();
 };
 
-export const loginCallBackAsync = (url: string): AppThunk => async (dispatch) => {
-  await authService.loginCallback(url);
-  const user = await authService.getUser();
+export const completeLoginAsync = (): AppThunk => async (dispatch) => {
+  await authService.completeLoginAsync(window.location.href);
+  const user = await authService.getUserAsync();
   dispatch(loginSuccess({ name: user?.profile.name } as IUser));
+};
+
+export const logoutAsync = (): AppThunk => async (dispatch) => {
+  await authService.logoutAsync();
+  dispatch(logoutSuccess());
+};
+
+export const completeLogoutAsync = (): AppThunk => async (dispatch) => {
+  await authService.completeLogoutAsync(window.location.href);
 };
 
 export const selectIsAuthenticated = (state: RootState) => !!state.auth.user;
