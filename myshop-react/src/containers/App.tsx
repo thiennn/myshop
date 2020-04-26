@@ -11,7 +11,7 @@ const App = () => {
       <NavMenu />
       <div className="container">
         <div>
-          <Link to="/">Home</Link> <Link to="/about">About</Link>
+          <Link to="/about">About</Link>
         </div>
         <Switch>
           <Route path="/authentication" component={Auth} />

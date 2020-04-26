@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import LoginMenu from "../components/LoginMenu";
+import { Link } from "react-router-dom";
 
+import LoginMenu from "../components/LoginMenu";
 import { selectIsAuthenticated, selectUser } from "../store/auth-slice";
 
 const NavMenu = () => {
@@ -12,9 +13,9 @@ const NavMenu = () => {
     <header>
       <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div className="container">
-          <a className="navbar-brand" href="/">
+          <Link to="/" className="navbar-brand">
             ReactSpa
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
