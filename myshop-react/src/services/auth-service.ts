@@ -16,9 +16,6 @@ export class AuthService {
 
   constructor() {
     this.userManager = new UserManager(oidcSettings);
-
-    Log.logger = console;
-    Log.level = Log.DEBUG;
   }
 
   public getUserAsync(): Promise<User | null> {

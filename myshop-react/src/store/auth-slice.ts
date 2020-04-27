@@ -30,7 +30,7 @@ export const authSlice = createSlice({
   },
 });
 
-const { loginSuccess, logoutSuccess } = authSlice.actions;
+export const { loginSuccess, logoutSuccess } = authSlice.actions;
 
 export const loginAsync = (): AppThunk => async (dispatch) => {
   await authService.loginAsync();
