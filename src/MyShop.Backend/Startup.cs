@@ -34,7 +34,8 @@ namespace MyShop.Backend
                 ["Mvc"] = Configuration["ClientUrl:Mvc"],
                 ["Blazor"] = Configuration["ClientUrl:Blazor"],
                 ["Swagger"] = Configuration["ClientUrl:Swagger"],
-                ["Angular"] = Configuration["ClientUrl:Angular"]
+                ["Angular"] = Configuration["ClientUrl:Angular"],
+                ["React"] = Configuration["ClientUrl:React"]
             };
 
             services.AddDbContext<ApplicationDbContext>(options =>
