@@ -1,8 +1,4 @@
 ﻿@page "/"
-@using Microsoft.Extensions.Configuration
-@using MyShop.ViewModels
-@inject IConfiguration Configuration
-@inject HttpClient Http
 
 <h1>Hello, world!</h1>
 
@@ -13,29 +9,3 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
-@_url
-@if (_categories == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <div>Category</div>
-    <ul class="navbar-nav" style="margin: 0 auto">
-        @foreach (var cat in _categories)
-        {
-            <li class="nav-item"><a class="nav-link" href="/categories/@cat.Id">Category name: @cat.Name</a></li>
-        }
-    </ul>
-}
-
-@code {
-    private CategoryVm[] _categories;
-    private string _url;
-
-    protected override async Task OnInitializedAsync()
-    {
-        _url = Configuration["AppSettings:BackendUrl"];
-        _categories = await Http.GetFromJsonAsync<CategoryVm[]>($"{_url}/api/categories");
-    }
-}
