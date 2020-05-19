@@ -1,5 +1,4 @@
 FROM nginx:alpine as base
-
 EXPOSE 80
 
 FROM node:14-alpine as build
