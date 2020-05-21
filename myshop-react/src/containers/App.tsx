@@ -14,7 +14,7 @@ const App = () => {
           <Link to="/about">About</Link>
         </div>
         <Switch>
-          <Route path="/authentication" component={Auth} />
+          <Route path="/authentication/:action" component={Auth} />
           <Route path="/about" component={About} />
           <Route path="/" component={Home} />
         </Switch>
