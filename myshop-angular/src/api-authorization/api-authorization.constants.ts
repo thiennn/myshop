@@ -82,11 +82,13 @@ interface ApplicationPathsType {
 
 export const ApplicationPaths: ApplicationPathsType = applicationPaths;
 
+const webBaseUri = window.location.origin
+
 export const OidcSettings = {
   authority: environment.backendUrl,
   client_id: "angular_code_client",
-  redirect_uri: `${environment.baseUrl}/authentication/login-callback`,
-  post_logout_redirect_uri: `${environment.baseUrl}/authentication/logout-callback`,
+  redirect_uri: `${webBaseUri}/authentication/login-callback`,
+  post_logout_redirect_uri: `${webBaseUri}/authentication/logout-callback`,
   response_type: "code",
   scope: "api.myshop openid profile"
 };

@@ -64,7 +64,6 @@ services:
       context: ../myshop-react
       dockerfile: Dockerfile
       args:
-        - REACT_APP_BASE_URL=http://${HOST_IP}:${REACT_PORT}
         - REACT_APP_BACKEND_URL=http://${HOST_IP}:${BACKEND_PORT}
     ports:
       - "${REACT_PORT}:80"
