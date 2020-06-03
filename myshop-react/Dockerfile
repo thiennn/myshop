@@ -3,14 +3,13 @@ EXPOSE 80
 
 FROM node:14-alpine as build
 
-ARG REACT_APP_BACKEND_URL
-
 WORKDIR /app
 
 COPY package.json .
 COPY package-lock.json .
 RUN npm install
 
+ARG REACT_APP_BACKEND_URL
 COPY . .
 RUN npm run build
 
