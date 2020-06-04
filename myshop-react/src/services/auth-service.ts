@@ -1,8 +1,8 @@
-import { User, UserManager } from "oidc-client";
+import { User, UserManager, UserManagerSettings } from "oidc-client";
 
 const webBaseUri = window.location.origin
 
-const oidcSettings = {
+const oidcSettings: UserManagerSettings = {
   authority: process.env.REACT_APP_BACKEND_URL,
   client_id: "react_code_client",
   redirect_uri: `${webBaseUri}/authentication/login-callback`,
@@ -13,7 +13,7 @@ const oidcSettings = {
   includeIdTokenInSilentRenew: true,
 };
 
-export class AuthService {
+class AuthService {
   public userManager: UserManager;
 
   constructor() {
@@ -44,3 +44,5 @@ export class AuthService {
     await this.userManager.signoutCallback(url);
   }
 }
+
+export default new AuthService();
