@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MyShop.Frontend.Services;
+using OpenTelemetry.Trace;
 
 namespace MyShop.Frontend
 {
@@ -26,10 +27,6 @@ namespace MyShop.Frontend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            var appSettings = appSettingsSection.Get<AppSettings>();
-            services.Configure<AppSettings>(appSettingsSection);
-
             services.AddHttpClient();
 
             services.AddAuthentication(options =>
@@ -40,7 +37,7 @@ namespace MyShop.Frontend
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = appSettings.BackendUrl;
+                    options.Authority = Configuration.GetServiceUri("backend").ToString();
                     options.RequireHttpsMetadata = false;
                     options.GetClaimsFromUserInfoEndpoint = true;
 
@@ -68,13 +65,26 @@ namespace MyShop.Frontend
                 var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
                 var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
 
-                client.BaseAddress = new Uri(appSettings.BackendUrl);
+                client.BaseAddress = Configuration.GetServiceUri("backend");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             });
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpClient<ICategoryApiClient, CategoryApiClient>(configureClient);
             services.AddHttpClient<IProductApiClient, ProductApiClient>(configureClient);
+
+            services.AddOpenTelemetryTracing(tracing =>
+            {
+                tracing.AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddSource("FrontendSource")
+                    .SetSampler(new AlwaysOnSampler())
+                    .AddZipkinExporter(option =>
+                    {
+                        option.ServiceName = typeof(Startup).Assembly.GetName().Name;
+                        option.Endpoint = new Uri("http://localhost:9411/api/v2/spans");
+                    });
+            });
 
             services.AddControllersWithViews();
         }

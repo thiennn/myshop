@@ -1,0 +1,22 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: myshop
+services:
+- name: backend
+  project: src/MyShop.Backend/MyShop.Backend.csproj
+  bindings:
+  - port: 44349
+    protocol: https
+- name: frontend
+  project: src/MyShop.Frontend/MyShop.Frontend.csproj
+  bindings:
+  - port: 44393
+    protocol: https
+- name: zipkin
+  image: openzipkin/zipkin
+  bindings:
+  - port: 9411 

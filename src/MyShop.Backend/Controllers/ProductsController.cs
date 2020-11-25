@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MyShop.Backend.Data;
 using MyShop.Backend.Models;
 using MyShop.Backend.Services;
@@ -22,11 +24,14 @@ namespace MyShop.Backend.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IStorageService _storageService;
+        private readonly ILogger _logger;
+        private static readonly ActivitySource DemoSource = new ActivitySource("OTel.Demo");
 
-        public ProductsController(ApplicationDbContext context, IStorageService storageService)
+        public ProductsController(ApplicationDbContext context, IStorageService storageService, ILogger<ProductsController> logger)
         {
             _context = context;
             _storageService = storageService;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -48,6 +53,7 @@ namespace MyShop.Backend.Controllers
             };
 
             productVm.ThumbnailImageUrl = _storageService.GetFileUrl(product.ImageFileName);
+            _logger.LogInformation("get product");
 
             return productVm;
         }
@@ -75,6 +81,12 @@ namespace MyShop.Backend.Controllers
                     Description = x.Description,
                     ThumbnailImageUrl = _storageService.GetFileUrl(x.ImageFileName)
                 }).ToList();
+
+            _logger.LogInformation("get products");
+            using (var activity = DemoSource.StartActivity("This is sample activity"))
+            {
+                _logger.LogInformation("Hello, World!aaaaaaaaaaa");
+            }
 
             return productVms;
         }

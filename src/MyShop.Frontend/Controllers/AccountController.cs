@@ -11,7 +11,7 @@ namespace MyShop.Frontend.Controllers
             return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "oidc");
         }
 
-        public IActionResult SignOut()
+        public new IActionResult SignOut()
         {
             return SignOut(new AuthenticationProperties { RedirectUri = "/" }, "Cookies", "oidc");
         }
