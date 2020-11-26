@@ -75,7 +75,13 @@ namespace MyShop.Frontend
 
             services.AddOpenTelemetryTracing(tracing =>
             {
-                tracing.AddAspNetCoreInstrumentation()
+                tracing.AddAspNetCoreInstrumentation(o => o.Filter =
+                (httpContext) =>
+                {
+                    return !(httpContext.Request.Path.Value.EndsWith(".css") || 
+                    httpContext.Request.Path.Value.EndsWith(".js") ||
+                    httpContext.Request.Path.Value.EndsWith(".ico"));
+                })
                     .AddHttpClientInstrumentation()
                     .AddSource("FrontendSource")
                     .SetSampler(new AlwaysOnSampler())
