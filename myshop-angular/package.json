@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.6.2",
     "jquery": "^3.4.1",
     "oidc-client": "^1.9.1",
     "rxjs": "~6.4.0",
