@@ -23,7 +23,7 @@
     "jquery": "^3.4.1",
     "oidc-client": "^1.9.1",
     "rxjs": "~6.4.0",
-    "tslib": "^1.10.0",
+    "tslib": "^1.14.1",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
