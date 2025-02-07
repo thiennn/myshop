@@ -119,18 +119,6 @@ namespace MyShop.Backend
             });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddOpenTelemetryTracing(tracing =>
-            {
-                tracing.AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddSource("OTel.Demo")
-                    .SetSampler(new AlwaysOnSampler())
-                    .AddZipkinExporter(option =>
-                    {
-                        option.ServiceName = typeof(Startup).Assembly.GetName().Name;
-                        option.Endpoint = new Uri("http://localhost:9411/api/v2/spans");
-                    });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

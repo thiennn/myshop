@@ -20,7 +20,7 @@ namespace MyShop.Backend.IntegrationTests
         public async Task GetBrands_Success()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("api/categories");
+            var response = await client.GetAsync("api/brands");
 
             response.EnsureSuccessStatusCode();
             var brands = await response.Content.ReadAsAsync<IEnumerable<BrandVm>>();
