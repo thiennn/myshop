@@ -6,7 +6,7 @@
 
 # Getting started
 
-You will need to have .NET Core 3.0 SDK installed. You can use Visual Studio 2019 or Visual Studio Code
+You will need to have .NET 9 SDK installed. You can use Visual Studio 2022 or Visual Studio Code
 
 ## For Visual Studio
 
@@ -35,7 +35,7 @@ You will need to have .NET Core 3.0 SDK installed. You can use Visual Studio 201
 
 2. Install Entity Framework Core Tools by run the command below
 
-`dotnet tool install --global dotnet-ef --version 3.0.0`
+`dotnet tool install --global dotnet-ef`
 
 3. Go to the src\MyShop.Backend open the appsettings.json update the connection string, then type `dotnet ef database update` to run migration. Then type `dotnet run` to launch the backend
 

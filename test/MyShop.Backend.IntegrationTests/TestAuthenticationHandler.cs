@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -10,9 +11,10 @@ namespace MyShop.Backend.IntegrationTests
     public class TestAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         public TestAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options,
-            ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
-            : base(options, logger, encoder, clock)
+            ILoggerFactory logger, UrlEncoder encoder, TimeProvider timeProvider)
+            : base(options, logger, encoder)
         {
+            options.CurrentValue.TimeProvider = timeProvider;
         }
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MyShop.Frontend.Services;
+using OpenTelemetry;
 using OpenTelemetry.Trace;
 
 namespace MyShop.Frontend
@@ -73,24 +74,21 @@ namespace MyShop.Frontend
             services.AddHttpClient<ICategoryApiClient, CategoryApiClient>(configureClient);
             services.AddHttpClient<IProductApiClient, ProductApiClient>(configureClient);
 
-            services.AddOpenTelemetryTracing(tracing =>
-            {
-                tracing.AddAspNetCoreInstrumentation(o => o.Filter =
-                (httpContext) =>
-                {
-                    return !(httpContext.Request.Path.Value.EndsWith(".css") || 
-                    httpContext.Request.Path.Value.EndsWith(".js") ||
-                    httpContext.Request.Path.Value.EndsWith(".ico"));
-                })
+            services.AddOpenTelemetry()
+                .WithTracing(builder => builder
+                    .AddAspNetCoreInstrumentation(o => o.Filter =
+                    (httpContext) =>
+                    {
+                        return !(httpContext.Request.Path.Value.EndsWith(".css") || 
+                        httpContext.Request.Path.Value.EndsWith(".js") ||
+                        httpContext.Request.Path.Value.EndsWith(".ico"));
+                    })
                     .AddHttpClientInstrumentation()
                     .AddSource("FrontendSource")
-                    .SetSampler(new AlwaysOnSampler())
                     .AddZipkinExporter(option =>
                     {
-                        option.ServiceName = typeof(Startup).Assembly.GetName().Name;
                         option.Endpoint = new Uri("http://localhost:9411/api/v2/spans");
-                    });
-            });
+                    }));
 
             services.AddControllersWithViews();
         }
