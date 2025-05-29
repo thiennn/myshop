@@ -12,13 +12,13 @@ jobs:
       with:
         fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
     - name: Run Snyk test
-        uses: snyk/actions/dotnet@master
-        continue-on-error: true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: test --sarif
-          args: --sarif-file-output=snyk_test.sarif
+      uses: snyk/actions/dotnet@master
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: test --sarif
+        args: --sarif-file-output=snyk_test.sarif
     - name: Run Snyk code test
       uses: snyk/actions/dotnet@master
       continue-on-error: true
